@@ -9,5 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface ChessObj : NSObject
+@property(nonatomic, strong) NSArray *chessPosition;
+@property(nonatomic, strong) NSString *playerMove;
+@property(nonatomic, strong) NSString *nameChess;
+@property(nonatomic, strong) NSArray *previousChessPosition;
+
+- (instancetype)initWithNameChess: (NSString*)name withChessPosition: (NSArray*)chessPosition withPreviousChessPosition: (NSArray*)prePosition withPlayerMove: (NSString*)playerMove andBaseArray: (NSArray*)baseArray;
 
 @end

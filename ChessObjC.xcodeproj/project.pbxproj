@@ -20,6 +20,20 @@
 		B8F67F741CC4DEEA00EB9CC2 /* button3.png in Resources */ = {isa = PBXBuildFile; fileRef = B8F67F731CC4DEEA00EB9CC2 /* button3.png */; };
 		B8F67F771CC4E1EE00EB9CC2 /* LoginScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F67F761CC4E1EE00EB9CC2 /* LoginScreen.m */; };
 		B8F67F7A1CC4EE4900EB9CC2 /* PlayScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F67F791CC4EE4900EB9CC2 /* PlayScreen.m */; };
+		B8FE548C1CC5E0DF0094FC02 /* BishopBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54801CC5E0DF0094FC02 /* BishopBlack500.png */; };
+		B8FE548D1CC5E0DF0094FC02 /* BishopWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54811CC5E0DF0094FC02 /* BishopWhite500.png */; };
+		B8FE548E1CC5E0DF0094FC02 /* KingBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54821CC5E0DF0094FC02 /* KingBlack500.png */; };
+		B8FE548F1CC5E0DF0094FC02 /* KingWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54831CC5E0DF0094FC02 /* KingWhite500.png */; };
+		B8FE54901CC5E0DF0094FC02 /* KnightBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54841CC5E0DF0094FC02 /* KnightBlack500.png */; };
+		B8FE54911CC5E0DF0094FC02 /* KnightWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54851CC5E0DF0094FC02 /* KnightWhite500.png */; };
+		B8FE54921CC5E0DF0094FC02 /* PawnBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54861CC5E0DF0094FC02 /* PawnBlack500.png */; };
+		B8FE54931CC5E0DF0094FC02 /* PawnWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54871CC5E0DF0094FC02 /* PawnWhite500.png */; };
+		B8FE54941CC5E0DF0094FC02 /* QueenBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54881CC5E0DF0094FC02 /* QueenBlack500.png */; };
+		B8FE54951CC5E0DF0094FC02 /* QueenWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE54891CC5E0DF0094FC02 /* QueenWhite500.png */; };
+		B8FE54961CC5E0DF0094FC02 /* RookBlack500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE548A1CC5E0DF0094FC02 /* RookBlack500.png */; };
+		B8FE54971CC5E0DF0094FC02 /* RookWhite500.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FE548B1CC5E0DF0094FC02 /* RookWhite500.png */; };
+		B8FE549B1CC5E1A70094FC02 /* ChessView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE549A1CC5E1A70094FC02 /* ChessView.m */; };
+		B8FE549E1CC5E4E50094FC02 /* ChessObj.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FE549D1CC5E4E50094FC02 /* ChessObj.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +55,22 @@
 		B8F67F761CC4E1EE00EB9CC2 /* LoginScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginScreen.m; sourceTree = "<group>"; };
 		B8F67F781CC4EE4900EB9CC2 /* PlayScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayScreen.h; sourceTree = "<group>"; };
 		B8F67F791CC4EE4900EB9CC2 /* PlayScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayScreen.m; sourceTree = "<group>"; };
+		B8FE54801CC5E0DF0094FC02 /* BishopBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BishopBlack500.png; sourceTree = "<group>"; };
+		B8FE54811CC5E0DF0094FC02 /* BishopWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BishopWhite500.png; sourceTree = "<group>"; };
+		B8FE54821CC5E0DF0094FC02 /* KingBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KingBlack500.png; sourceTree = "<group>"; };
+		B8FE54831CC5E0DF0094FC02 /* KingWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KingWhite500.png; sourceTree = "<group>"; };
+		B8FE54841CC5E0DF0094FC02 /* KnightBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KnightBlack500.png; sourceTree = "<group>"; };
+		B8FE54851CC5E0DF0094FC02 /* KnightWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KnightWhite500.png; sourceTree = "<group>"; };
+		B8FE54861CC5E0DF0094FC02 /* PawnBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PawnBlack500.png; sourceTree = "<group>"; };
+		B8FE54871CC5E0DF0094FC02 /* PawnWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PawnWhite500.png; sourceTree = "<group>"; };
+		B8FE54881CC5E0DF0094FC02 /* QueenBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QueenBlack500.png; sourceTree = "<group>"; };
+		B8FE54891CC5E0DF0094FC02 /* QueenWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QueenWhite500.png; sourceTree = "<group>"; };
+		B8FE548A1CC5E0DF0094FC02 /* RookBlack500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RookBlack500.png; sourceTree = "<group>"; };
+		B8FE548B1CC5E0DF0094FC02 /* RookWhite500.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RookWhite500.png; sourceTree = "<group>"; };
+		B8FE54991CC5E1A70094FC02 /* ChessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessView.h; sourceTree = "<group>"; };
+		B8FE549A1CC5E1A70094FC02 /* ChessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessView.m; sourceTree = "<group>"; };
+		B8FE549C1CC5E4E50094FC02 /* ChessObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessObj.h; sourceTree = "<group>"; };
+		B8FE549D1CC5E4E50094FC02 /* ChessObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessObj.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +109,7 @@
 				B8F67F761CC4E1EE00EB9CC2 /* LoginScreen.m */,
 				B8F67F781CC4EE4900EB9CC2 /* PlayScreen.h */,
 				B8F67F791CC4EE4900EB9CC2 /* PlayScreen.m */,
+				B8FE54981CC5E1880094FC02 /* Chess */,
 				B8F67F581CC4C59F00EB9CC2 /* Main.storyboard */,
 				B8F67F6C1CC4D84200EB9CC2 /* Chess Images */,
 				B8F67F5B1CC4C59F00EB9CC2 /* Assets.xcassets */,
@@ -100,6 +131,7 @@
 		B8F67F6C1CC4D84200EB9CC2 /* Chess Images */ = {
 			isa = PBXGroup;
 			children = (
+				B8FE547F1CC5E0CC0094FC02 /* Chess */,
 				B8F67F711CC4DE6D00EB9CC2 /* button2.png */,
 				B8F67F6F1CC4DCCC00EB9CC2 /* button1.png */,
 				B8F67F731CC4DEEA00EB9CC2 /* button3.png */,
@@ -108,6 +140,36 @@
 				B8F67F661CC4CD6C00EB9CC2 /* background0.png */,
 			);
 			path = "Chess Images";
+			sourceTree = "<group>";
+		};
+		B8FE547F1CC5E0CC0094FC02 /* Chess */ = {
+			isa = PBXGroup;
+			children = (
+				B8FE54801CC5E0DF0094FC02 /* BishopBlack500.png */,
+				B8FE54811CC5E0DF0094FC02 /* BishopWhite500.png */,
+				B8FE54821CC5E0DF0094FC02 /* KingBlack500.png */,
+				B8FE54831CC5E0DF0094FC02 /* KingWhite500.png */,
+				B8FE54841CC5E0DF0094FC02 /* KnightBlack500.png */,
+				B8FE54851CC5E0DF0094FC02 /* KnightWhite500.png */,
+				B8FE54861CC5E0DF0094FC02 /* PawnBlack500.png */,
+				B8FE54871CC5E0DF0094FC02 /* PawnWhite500.png */,
+				B8FE54881CC5E0DF0094FC02 /* QueenBlack500.png */,
+				B8FE54891CC5E0DF0094FC02 /* QueenWhite500.png */,
+				B8FE548A1CC5E0DF0094FC02 /* RookBlack500.png */,
+				B8FE548B1CC5E0DF0094FC02 /* RookWhite500.png */,
+			);
+			name = Chess;
+			sourceTree = "<group>";
+		};
+		B8FE54981CC5E1880094FC02 /* Chess */ = {
+			isa = PBXGroup;
+			children = (
+				B8FE54991CC5E1A70094FC02 /* ChessView.h */,
+				B8FE549A1CC5E1A70094FC02 /* ChessView.m */,
+				B8FE549C1CC5E4E50094FC02 /* ChessObj.h */,
+				B8FE549D1CC5E4E50094FC02 /* ChessObj.m */,
+			);
+			name = Chess;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +231,24 @@
 			files = (
 				B8F67F691CC4D5AD00EB9CC2 /* background1 in Resources */,
 				B8F67F6E1CC4D85300EB9CC2 /* background3.png in Resources */,
+				B8FE548E1CC5E0DF0094FC02 /* KingBlack500.png in Resources */,
+				B8FE548F1CC5E0DF0094FC02 /* KingWhite500.png in Resources */,
 				B8F67F5F1CC4C59F00EB9CC2 /* LaunchScreen.storyboard in Resources */,
 				B8F67F701CC4DCCC00EB9CC2 /* button1.png in Resources */,
+				B8FE54901CC5E0DF0094FC02 /* KnightBlack500.png in Resources */,
 				B8F67F721CC4DE6D00EB9CC2 /* button2.png in Resources */,
 				B8F67F5C1CC4C59F00EB9CC2 /* Assets.xcassets in Resources */,
+				B8FE548C1CC5E0DF0094FC02 /* BishopBlack500.png in Resources */,
+				B8FE54941CC5E0DF0094FC02 /* QueenBlack500.png in Resources */,
 				B8F67F671CC4CD6C00EB9CC2 /* background0.png in Resources */,
+				B8FE54921CC5E0DF0094FC02 /* PawnBlack500.png in Resources */,
+				B8FE54951CC5E0DF0094FC02 /* QueenWhite500.png in Resources */,
+				B8FE54911CC5E0DF0094FC02 /* KnightWhite500.png in Resources */,
+				B8FE54931CC5E0DF0094FC02 /* PawnWhite500.png in Resources */,
+				B8FE54961CC5E0DF0094FC02 /* RookBlack500.png in Resources */,
 				B8F67F5A1CC4C59F00EB9CC2 /* Main.storyboard in Resources */,
+				B8FE548D1CC5E0DF0094FC02 /* BishopWhite500.png in Resources */,
+				B8FE54971CC5E0DF0094FC02 /* RookWhite500.png in Resources */,
 				B8F67F741CC4DEEA00EB9CC2 /* button3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,7 +260,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8FE549B1CC5E1A70094FC02 /* ChessView.m in Sources */,
 				B8F67F541CC4C59F00EB9CC2 /* AppDelegate.m in Sources */,
+				B8FE549E1CC5E4E50094FC02 /* ChessObj.m in Sources */,
 				B8F67F7A1CC4EE4900EB9CC2 /* PlayScreen.m in Sources */,
 				B8F67F771CC4E1EE00EB9CC2 /* LoginScreen.m in Sources */,
 				B8F67F511CC4C59F00EB9CC2 /* main.m in Sources */,
@@ -338,6 +414,7 @@
 				B8F67F651CC4C59F00EB9CC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

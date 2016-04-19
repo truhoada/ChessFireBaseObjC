@@ -10,4 +10,14 @@
 
 @implementation ChessObj
 
+- (instancetype)initWithNameChess:(NSString *)name withChessPosition:(NSArray *)chessPosition withPreviousChessPosition:(NSArray *)prePosition withPlayerMove:(NSString *)playerMove andBaseArray:(NSArray *)baseArray {
+    
+    self.chessPosition = chessPosition;
+    self.previousChessPosition = prePosition;
+    self.playerMove = playerMove;
+    self.nameChess = name;
+    
+    return self;
+}
+
 @end
