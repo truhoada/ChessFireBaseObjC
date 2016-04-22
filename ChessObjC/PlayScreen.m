@@ -7,8 +7,10 @@
 //
 
 #import "PlayScreen.h"
+#import "ChessObj.h"
+#import "ChessView.h"
 
-@interface PlayScreen ()
+@interface PlayScreen ()<UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *labelPlayer;
 @property (weak, nonatomic) IBOutlet UIImageView *imgNextTurnPlayer;
 
@@ -21,7 +23,7 @@
     CGFloat kCellWidth;
     NSArray *currentPosition;
     NSArray *arrayNames;
-    NSArray *baseArray;
+    NSMutableArray *baseArray;
     NSString *currentPlayer;
     NSString *currentRival;
     NSString *subNamePlayer;
@@ -34,7 +36,9 @@
     [super viewDidLoad];
     [self setupValue];
     [self setupTableChess];
-
+    [self addChessPlayerWithTag:100 andSubName:subNamePlayer];
+    [self addChessRivalWithTag:200 andSubName:subNameRival];
+    
 }
 
 - (void)setupValue {
@@ -50,6 +54,16 @@
     currentRival = @"NoName";
     subNamePlayer = @"white";
     subNameRival = @"";
+    baseArray = [NSMutableArray arrayWithObjects:
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
+                 nil];
     lock = false;
 }
 
@@ -68,9 +82,9 @@
             UIView *cell = [[UIView alloc] initWithFrame:rect];
             
             if (rowIndex%2 == 0) {
-                cell.backgroundColor = (colIndex%2 == 0) ? [UIColor colorWithRed:64.0/255.0 green:64.0/255.0 blue:64.0/255.0 alpha:1] : [UIColor colorWithRed:255.0/255.0 green:178.0/255.0 blue:102.0/255.0 alpha:1];
+                cell.backgroundColor = (colIndex%2 == 0) ? [UIColor colorWithRed:255.0/255.0 green:206.0/255.0 blue:158.0/255.0 alpha:1] : [UIColor colorWithRed:209.0/255.0 green:139.0/255.0 blue:71.0/255.0 alpha:1];
             } else {
-                cell.backgroundColor = (colIndex%2 == 0) ? [UIColor colorWithRed:255.0/255.0 green:178.0/255.0 blue:102.0/255.0 alpha:1] : [UIColor colorWithRed:64.0/255.0 green:64.0/255.0 blue:64.0/255.0 alpha:1];
+                cell.backgroundColor = (colIndex%2 == 0) ? [UIColor colorWithRed:209.0/255.0 green:139.0/255.0 blue:71.0/255.0 alpha:1] : [UIColor colorWithRed:255.0/255.0 green:206.0/255.0 blue:158.0/255.0 alpha:1];
             }
             [containerView addSubview:cell];
         }
@@ -96,8 +110,56 @@
             UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
             imgView.image = img;
             
+            ChessView *chess = [[ChessView alloc] initWithFrame:rect];
+            chess.tag = tag + colIndex + rowIndex*8;
+            chess.nameChess = name;
+            baseArray[rowIndex][colIndex] = @1;
+            chess.baseArray = baseArray;
+            UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+            
+            pan.delegate = self;
+            chess.imageView.image = img;
+            [chess addGestureRecognizer:pan];
+            [containerView addSubview:chess];
+            
+            
         }
     }
+}
+
+- (void)addChessRivalWithTag: (int)tag andSubName: (NSString*)subName {
+    for (int rowIndex=0; rowIndex<2; rowIndex++) {
+        for (int colIndex=0; colIndex<8; colIndex++) {
+            CGRect rect = CGRectMake((CGFloat)colIndex*kCellWidth, (CGFloat)rowIndex*kCellWidth, kCellWidth, kCellWidth);
+            int tempCol = colIndex;
+            NSString *name = @"";
+            if(tempCol > 4) {
+                tempCol = (int)arrayNames.count - tempCol + 1;
+            }
+            if(rowIndex == 0) {
+                name = [NSString stringWithFormat:@"%@%@", subName, arrayNames[tempCol]];
+            }
+            else {
+                name = [NSString stringWithFormat:@"%@%@", subName, arrayNames.lastObject];
+            }
+            UIImage *img = [UIImage imageNamed:name];
+            UIImageView *imgView = [[UIImageView alloc] initWithFrame:rect];
+            imgView.image = img;
+            
+            ChessView *chess = [[ChessView alloc] initWithFrame:rect];
+            chess.tag = tag + colIndex + rowIndex*8;
+            chess.nameChess = name;
+            baseArray[rowIndex][colIndex] = @1;
+            chess.baseArray = baseArray;
+            
+            chess.imageView.image = img;
+            [containerView addSubview:chess];
+        }
+    }
+}
+
+- (void)handlePan: (UIGestureRecognizer*)pan {
+    NSLog(@"121");
 }
 
 @end

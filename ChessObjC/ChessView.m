@@ -13,8 +13,8 @@
 
 @implementation ChessView
 
-- (instancetype)init {
-    if (self = [super init]) {
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
         [self addSubviews];
     }
     
@@ -30,11 +30,110 @@
     }
 }
 
-//- (BOOL)calculatePositionWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
-//    NSString *tempName = self.nameChess;
-//    NSRange textRange = [tempName rangeOfString:@"white"];
-//    tempName = [tempName substringFromIndex:textRange.length];//???
-//}
+- (BOOL)calculatePositionWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
+    NSString *tempName = self.nameChess;
+    NSRange textRange = [tempName rangeOfString:@"white"];
+    tempName = [tempName substringFromIndex:textRange.length];//???
+    
+    int type = [self jumpTypesWithCurrentPosition:curPos andDestinationPosition:desPos];
+    
+    ChessPieces chessPieces = Pawn;
+    if ([tempName isEqualToString:@"King"]) {
+        chessPieces = King;
+    }
+    if ([tempName isEqualToString:@"Queen"]) {
+        chessPieces = Queen;
+    }
+    if ([tempName isEqualToString:@"Bishop"]) {
+        chessPieces = Bishop;
+    }
+    if ([tempName isEqualToString:@"Knight"]) {
+        chessPieces = Knight;
+    }
+    if ([tempName isEqualToString:@"Rook"]) {
+        chessPieces = Rook;
+    }
+    if ([tempName isEqualToString:@"Pawn"]) {
+        chessPieces = Pawn;
+    }
+    
+    switch (chessPieces) {
+        case King:
+            if ((abs((int)curPos[0] - (int)desPos[0]) > 1) || (((abs((int)curPos[1] - (int)desPos[1]) > 1)))) {
+                return false;
+            }
+            if (type == 2) {
+                return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            if (type == 1) {
+                return [self checkDiagonalWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            break;
+            
+        case Queen:
+            if (type == 2) {
+                return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            if (type == 1) {
+                return [self checkDiagonalWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            break;
+            
+        case Rook:
+            if (type == 2) {
+                return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            break;
+            
+        case Bishop:
+            if (type == 1) {
+                return [self checkDiagonalWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            break;
+            
+        case Knight:
+            if (type == 0) {
+                return true;
+            }
+            break;
+            
+        case Pawn:
+            if ((int)curPos[0] - (int)desPos[0] == 2 && (int)curPos[0] == 6) {
+                return true;
+            }
+            if ((abs((int)curPos[0] - (int)desPos[0]) > 1) || (((abs((int)curPos[1] - (int)desPos[1]) > 1)))) {
+                return false;
+            }
+            if ((int)desPos[0] == 0 && (int)curPos[0] == 1) {
+                if (self.nameChess != tempName) {
+                    self.nameChess = @"whiteQueen";
+                } else {
+                    self.nameChess = @"Queen";
+                }
+                
+                self.imageView.image = [UIImage imageNamed:self.nameChess];
+            }
+            if (type == 1) {
+                if (self.baseArray[(int)desPos[0]][(int)desPos[1]] != 0) {
+                    return true;
+                }
+                return false;
+            }
+            if (type == 2) {
+                if (self.baseArray[(int)desPos[0]][(int)desPos[1]] != 0) {
+                    return false;
+                }
+                return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
+            }
+            
+            break;
+            
+        default: false;
+            break;
+    }
+    return false;
+    
+}
 
 //- (NSArray*)calculateDiagonalWithPosition:(NSArray*)pos isMaxPosition:(BOOL)isMax {
 //    bool leftUp = false;
@@ -61,6 +160,17 @@
 //    return @[[NSNumber numberWithBool:leftUp], [NSNumber numberWithBool:leftDown], [NSNumber numberWithBool:rightUp], [NSNumber numberWithBool:rightDown]];
 //}
 
+
+- (int)jumpTypesWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
+    if (((abs((int)curPos[0] - (int)desPos[0]) == 1) && (abs((int)curPos[0] - (int)desPos[0]) == 2)) || (((abs((int)curPos[1] - (int)desPos[1]) == 2) && ((abs((int)curPos[0] - (int)desPos[0]) == 1))))) {
+        return 0;
+    } else if (curPos[0] != desPos[0] && curPos[1] != desPos[1]) {
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
 - (BOOL)checkDiagonalWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
     //0:rightUp
     //1:rightDown
@@ -85,10 +195,72 @@
         if (desPos[1] > curPos[1]) {
             return [self loopCheckDiagonalWithPointA:curPos withPointB:desPos andWayToCheck:1];
         }
+        if (desPos[1] < curPos[1]) {
+            return [self loopCheckDiagonalWithPointA:curPos withPointB:desPos andWayToCheck:3];
+        }
     }
+    return false;
 }
 
 
+- (BOOL)checkStraightWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
+    //0:Up
+    //1:Down
+    //2:Left
+    //3:Right
+    if (((abs((int)curPos[0] - (int)desPos[0]) == 1)) && (self.nameChess != [self convertToString:Pawn])) {
+        return true;
+    }
+    if (desPos[0] < curPos[0]) {
+        //Up
+        return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:0];
+    }
+    if (desPos[0] > curPos[0]) {
+        //Down
+        if (self.nameChess == [self convertToString:Pawn]) {
+            return false;
+        }
+        return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:1];
+    } else {
+        if (self.nameChess == [self convertToString:Pawn]) {
+            return false;
+        }
+        if (desPos[1] < curPos[1]) {
+            //Left
+            return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:3];
+        } else if (desPos[1] > curPos[1]) {
+            //Right
+            return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:2];
+        }
+        return false;
+    }
+}
+
+- (NSString*) convertToString:(ChessPieces) chessPieces {
+    NSString *result = nil;
+    
+    switch(chessPieces) {
+        case King:
+            result = @"King";
+            break;
+        case Queen:
+            result = @"Queen";
+            break;
+        case Bishop:
+            result = @"Bishop";
+            break;
+        case Knight:
+            result = @"Knight";
+        case Rook:
+            result = @"Rook";
+        case Pawn:
+            result = @"Pawn";
+        default:
+            result = @"unknown";
+    }
+    
+    return result;
+}
 
 
 - (BOOL)loopCheckStraightWithPointA: (NSArray*)pointA withPointB: (NSArray*)pointB andWayToCheck:(int)wayToCheck {
