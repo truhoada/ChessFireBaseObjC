@@ -21,7 +21,7 @@
     CGFloat h0;
     UIView *containerView;
     CGFloat kCellWidth;
-    NSArray *currentPosition;
+    NSMutableArray *currentPosition;
     NSArray *arrayNames;
     NSMutableArray *baseArray;
     NSString *currentPlayer;
@@ -46,15 +46,13 @@
     h0 = 160.0;
     
     kCellWidth = 0.0;
-    currentPosition = @[@0, @0];
+    currentPosition= [[NSMutableArray alloc] initWithObjects:@0, @0, nil];
     arrayNames = @[@"Rook", @"Knight", @"Bishop", @"Queen", @"King", @"Pawn"];
-    //    baseArray = [NSArray ]
-    //    Array(count: 8, repeatedValue: Array(count: 8, repeatedValue: 0))
     currentPlayer = @"Computer";
     currentRival = @"NoName";
     subNamePlayer = @"white";
     subNameRival = @"";
-    baseArray = [NSMutableArray arrayWithObjects:
+    baseArray = [[NSMutableArray alloc] initWithObjects:
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
@@ -158,8 +156,55 @@
     }
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    CGPoint position = [touch locationInView:containerView];
+    currentPosition[0] = [NSNumber numberWithFloat:floor(position.y/kCellWidth)];
+    currentPosition[1] = [NSNumber numberWithFloat:floor(position.x/kCellWidth)];
+    return true;
+}
+
 - (void)handlePan: (UIGestureRecognizer*)pan {
-    NSLog(@"121");
+
+    ChessView *chess = (ChessView*)[pan view];
+    chess.baseArray = baseArray;
+    CGPoint position = [pan locationInView:containerView];
+    if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged) {
+        chess.center = position;
+        if (pan.state == UIGestureRecognizerStateBegan) {
+            chess.layer.zPosition = 1;
+        }
+    }
+    if (pan.state == UIGestureRecognizerStateEnded) {
+        int col = ceil(position.x/kCellWidth - 1);
+        int row = ceil(position.y/kCellWidth - 1);
+        int tag = 200 + col + row*8;
+        
+        if ((col<8 && row<8) && (col>=0 && row>=0) && (([chess calculatePositionWithCurrentPosition:currentPosition andDestinationPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]]] == true))) {
+            baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
+            chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
+            if ([baseArray[row][col]  isEqual: @0]) {
+                baseArray[row][col] = @1;
+                //[self sendData]//
+                
+                
+            }
+            else {
+                ChessView *chessRemove = [self.view viewWithTag:tag];
+                if (chessRemove) {
+                    [chessRemove removeFromSuperview];
+                    if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
+                        //[self sendWinner];//
+                        return;
+                    }
+                    //[self sendData]//
+                } else {
+                    chess.center= CGPointMake((CGFloat)([currentPosition[1] intValue]) * kCellWidth + kCellWidth/2, (CGFloat)([currentPosition[0] intValue]) * kCellWidth + kCellWidth/2);
+                }
+            } 
+            chess.tag = tag - 100;
+        } else {
+            chess.center= CGPointMake((CGFloat)([currentPosition[1] intValue]) * kCellWidth + kCellWidth/2, (CGFloat)([currentPosition[0] intValue]) * kCellWidth + kCellWidth/2);        }
+    }
 }
 
 @end

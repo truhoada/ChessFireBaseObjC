@@ -41,26 +41,26 @@
     if ([tempName isEqualToString:@"King"]) {
         chessPieces = King;
     }
-    if ([tempName isEqualToString:@"Queen"]) {
+    else if ([tempName isEqualToString:@"Queen"]) {
         chessPieces = Queen;
     }
-    if ([tempName isEqualToString:@"Bishop"]) {
+    else if ([tempName isEqualToString:@"Bishop"]) {
         chessPieces = Bishop;
     }
-    if ([tempName isEqualToString:@"Knight"]) {
+    else if ([tempName isEqualToString:@"Knight"]) {
         chessPieces = Knight;
     }
-    if ([tempName isEqualToString:@"Rook"]) {
+    else if ([tempName isEqualToString:@"Rook"]) {
         chessPieces = Rook;
     }
-    if ([tempName isEqualToString:@"Pawn"]) {
+    else if ([tempName isEqualToString:@"Pawn"]) {
         chessPieces = Pawn;
     }
     
     switch (chessPieces) {
         case King:
-            if ((abs((int)curPos[0] - (int)desPos[0]) > 1) || (((abs((int)curPos[1] - (int)desPos[1]) > 1)))) {
-                return false;
+            if ((abs([curPos[0] intValue] - [desPos[0] intValue]) > 1) || (((abs([curPos[1] intValue] - [desPos[1] intValue]) > 1)))) {
+                return false; // Di > 1 buoc
             }
             if (type == 2) {
                 return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
@@ -98,13 +98,13 @@
             break;
             
         case Pawn:
-            if ((int)curPos[0] - (int)desPos[0] == 2 && (int)curPos[0] == 6) {
-                return true;
+            if ([curPos[0] intValue] - [desPos[0] intValue] == 2 && [curPos[0] intValue] == 6) {
+                return true; // Di 2 buoc tai vi tri ban dau
             }
-            if ((abs((int)curPos[0] - (int)desPos[0]) > 1) || (((abs((int)curPos[1] - (int)desPos[1]) > 1)))) {
-                return false;
+            if ((abs([curPos[0] intValue] - [desPos[0] intValue]) > 1) || (((abs([curPos[1] intValue] - [desPos[1] intValue]) > 1)))) {
+                return false; //Vi tri ko di dc
             }
-            if ((int)desPos[0] == 0 && (int)curPos[0] == 1) {
+            if ([desPos[0] intValue] == 0 && [curPos[0] intValue] == 1) { //Phong hau
                 if (self.nameChess != tempName) {
                     self.nameChess = @"whiteQueen";
                 } else {
@@ -114,13 +114,13 @@
                 self.imageView.image = [UIImage imageNamed:self.nameChess];
             }
             if (type == 1) {
-                if (self.baseArray[(int)desPos[0]][(int)desPos[1]] != 0) {
+                if (![self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
                     return true;
                 }
                 return false;
             }
             if (type == 2) {
-                if (self.baseArray[(int)desPos[0]][(int)desPos[1]] != 0) {
+                if (![self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
                     return false;
                 }
                 return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
@@ -162,12 +162,12 @@
 
 
 - (int)jumpTypesWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
-    if (((abs((int)curPos[0] - (int)desPos[0]) == 1) && (abs((int)curPos[0] - (int)desPos[0]) == 2)) || (((abs((int)curPos[1] - (int)desPos[1]) == 2) && ((abs((int)curPos[0] - (int)desPos[0]) == 1))))) {
-        return 0;
-    } else if (curPos[0] != desPos[0] && curPos[1] != desPos[1]) {
-        return 1;
+    if (((abs([curPos[1] intValue] - [desPos[1] intValue]) == 1) && (abs([curPos[0] intValue] - [desPos[0] intValue]) == 2)) || (((abs([curPos[1] intValue] - [desPos[1] intValue]) == 2) && ((abs([curPos[0] intValue] - [desPos[0] intValue]) == 1))))) {
+        return 0; // Ma~
+    } else if ([curPos[0] intValue] != [desPos[0] intValue] && [curPos[1] intValue] != [desPos[1] intValue]) {
+        return 1; //Cheo
     } else {
-        return 2;
+        return 2; // Thang
     }
 }
 
@@ -177,7 +177,7 @@
     //2:leftUp
     //3:leftDown
     
-    if (abs((int)curPos[0] - (int)desPos[0]) == 1 && abs((int)curPos[1] - (int)desPos[1]) == 1) {
+    if (abs([curPos[0] intValue] - [desPos[0] intValue]) == 1 && abs([curPos[1] intValue] - [desPos[1] intValue]) == 1 && [self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
         //
         return true;
     }
@@ -208,27 +208,27 @@
     //1:Down
     //2:Left
     //3:Right
-    if (((abs((int)curPos[0] - (int)desPos[0]) == 1)) && (self.nameChess != [self convertToString:Pawn])) {
-        return true;
+    if (((abs([curPos[0] intValue] - [desPos[0] intValue]) == 1)) && (![self.nameChess containsString:[self convertToString:Pawn]]) && [self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
+        return true; // Tien/Lui 1
     }
-    if (desPos[0] < curPos[0]) {
+    if ([desPos[0] intValue] < [curPos[0] intValue]) {
         //Up
         return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:0];
     }
-    if (desPos[0] > curPos[0]) {
+    if ([desPos[0] intValue] > [curPos[0] intValue]) {
         //Down
-        if (self.nameChess == [self convertToString:Pawn]) {
+        if ([self.nameChess containsString:[self convertToString:Pawn]]) {
             return false;
         }
         return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:1];
     } else {
-        if (self.nameChess == [self convertToString:Pawn]) {
+        if ([self.nameChess containsString:[self convertToString:Pawn]]) {
             return false;
         }
-        if (desPos[1] < curPos[1]) {
+        if ([desPos[1] intValue] < [curPos[1] intValue]) {
             //Left
             return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:3];
-        } else if (desPos[1] > curPos[1]) {
+        } else if ([desPos[1] intValue] > [curPos[1] intValue]) {
             //Right
             return [self loopCheckStraightWithPointA:curPos withPointB:desPos andWayToCheck:2];
         }
@@ -251,12 +251,16 @@
             break;
         case Knight:
             result = @"Knight";
+            break;
         case Rook:
             result = @"Rook";
+            break;
         case Pawn:
             result = @"Pawn";
+            break;
         default:
             result = @"unknown";
+            break;
     }
     
     return result;
@@ -264,39 +268,39 @@
 
 
 - (BOOL)loopCheckStraightWithPointA: (NSArray*)pointA withPointB: (NSArray*)pointB andWayToCheck:(int)wayToCheck {
-    int row = (int)pointA[0];
-    int col = (int)pointA[1];
+    int row = [pointA[0] intValue];
+    int col = [pointA[1] intValue];
     //Up,Down,Right,Left
     
     switch (wayToCheck) {
         case 0:
             //Up
-            for (int i=row-1; i>(int)pointB[0]; i--) {
-                if (self.baseArray[i][col] != 0) {
+            for (int i=row-1; i>=[pointB[0] intValue]; i--) {
+                if (![self.baseArray[i][col]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 1:
             //Down
-            for (int i=row+1; i<(int)pointB[0]; i++) {
-                if (self.baseArray[i][col] != 0) {
+            for (int i=row+1; i<=[pointB[0] intValue]; i++) {
+                if (![self.baseArray[i][col]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 2:
             //Right
-            for (int i=col+1; i<(int)pointB[1]; i++) {
-                if (self.baseArray[row][i] != 0) {
+            for (int i=col+1; i<=[pointB[1] intValue]; i++) {
+                if (![self.baseArray[row][i]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 3:
             //Left
-            for (int i=col-1; i>(int)pointB[1]; i--) {
-                if (self.baseArray[row][i] != 0) {
+            for (int i=col-1; i>=[pointB[1] intValue]; i--) {
+                if (![self.baseArray[row][i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -313,39 +317,39 @@
 
 - (BOOL)loopCheckDiagonalWithPointA: (NSArray*)pointA withPointB: (NSArray*)pointB andWayToCheck:(int)wayToCheck {
     //
-    int row = (int)pointA[0];
-    int col = (int)pointA[1];
+    int row = [pointA[0] intValue];
+    int col = [pointA[1] intValue];
     //Up,Down,Right,Left
     
     switch (wayToCheck) {
         case 0:
             //rightUp
-            for (int i=1; row - i >(int)pointB[0]; i++) {
-                if (self.baseArray[row-i][col+i] != 0) {
+            for (int i=1; row - i >[pointB[0] intValue]; i++) {
+                if (![self.baseArray[row-i][col+i]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 1:
             //rightDown
-            for (int i=1; i+row<(int)pointB[0]; i++) {
-                if (self.baseArray[row+i][col+i] != 0) {
+            for (int i=1; i+row<[pointB[0] intValue]; i++) {
+                if (![self.baseArray[row+i][col+i]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 2:
             //leftUp
-            for (int i=1; row-i>(int)pointB[0]; i++) {
-                if (self.baseArray[row-i][col-i] != 0) {
+            for (int i=1; row-i>[pointB[0] intValue]; i++) {
+                if (![self.baseArray[row-i][col-i]  isEqual: @0]) {
                     return false;
                 }
             }
             break;
         case 3:
             //leftDown
-            for (int i=1; i+row<(int)pointB[0]; i++) {
-                if (self.baseArray[row+i][col-i] != 0) {
+            for (int i=1; i+row<[pointB[0] intValue]; i++) {
+                if (![self.baseArray[row+i][col-i]  isEqual: @0]) {
                     return false;
                 }
             }

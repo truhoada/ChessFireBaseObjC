@@ -28,4 +28,8 @@ typedef enum {
 @property(nonatomic, strong) ChessObj *chessObj;
 
 
+- (BOOL)calculatePositionWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos;
+
+- (NSString*) convertToString:(ChessPieces) chessPieces;
+
 @end
