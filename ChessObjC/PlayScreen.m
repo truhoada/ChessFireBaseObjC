@@ -9,10 +9,17 @@
 #import "PlayScreen.h"
 #import "ChessObj.h"
 #import "ChessView.h"
+#import "LoginScreen.h"
+#import <Firebase/Firebase.h>
+
+static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com/";
 
 @interface PlayScreen ()<UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *labelPlayer;
 @property (weak, nonatomic) IBOutlet UIImageView *imgNextTurnPlayer;
+
+@property(nonatomic, strong) Firebase *ref;
+@property(nonatomic, strong) Firebase *currentUser;
 
 @end
 
@@ -24,7 +31,6 @@
     NSMutableArray *currentPosition;
     NSArray *arrayNames;
     NSMutableArray *baseArray;
-    NSString *currentPlayer;
     NSString *currentRival;
     NSString *subNamePlayer;
     NSString *subNameRival;
@@ -34,11 +40,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
     [self setupValue];
     [self setupTableChess];
     [self addChessPlayerWithTag:100 andSubName:subNamePlayer];
     [self addChessRivalWithTag:200 andSubName:subNameRival];
     
+    [self configFireBase];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)setupValue {
@@ -48,7 +63,7 @@
     kCellWidth = 0.0;
     currentPosition= [[NSMutableArray alloc] initWithObjects:@0, @0, nil];
     arrayNames = @[@"Rook", @"Knight", @"Bishop", @"Queen", @"King", @"Pawn"];
-    currentPlayer = @"Computer";
+//    self.currentPlayer = @"Computer";
     currentRival = @"NoName";
     subNamePlayer = @"white";
     subNameRival = @"";
@@ -65,8 +80,73 @@
     lock = false;
 }
 
+
+- (void)configFireBase {
+    self.ref = [[Firebase alloc] initWithUrl:kFirebaseURL];
+    [self.ref removeValue];
+    [self.ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        for (FDataSnapshot *childSnap in snapshot.children.allObjects) {
+//            NSString *winner = childSnap.value[@"winner"];
+//            if (winner) {
+//                NSLog(@"You win!");
+//                return;
+//            }
+            NSString *json = childSnap.value;
+            if (json) {
+                NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
+                NSDictionary *jsonTmp = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                NSArray *arrayPosition = jsonTmp[@"chessPosition"];
+                NSArray *arrayPreviousPosition = jsonTmp[@"previousChessPosition"];
+                int tag = [arrayPreviousPosition[1] intValue] + (7 - [arrayPreviousPosition[0] intValue])*8;
+                if ([self.currentPlayer isEqualToString:jsonTmp[@"playerMove"]]) {
+                    NSLog(@"Lock Player");
+                    //
+                    [self.view.layer removeAllAnimations];
+                    lock = true;
+                } else {
+                    if (previousChess != nil) {
+                        previousChess.layer.borderWidth = 0;
+                    }
+                    lock = false;
+//                    Lock Player
+                    ChessView *chess = [self.view viewWithTag:tag + 200];
+                    if (chess) {
+                        if (baseArray[7 - [arrayPosition[0] intValue]][[arrayPosition[1] intValue]] != 0) {
+                            int tag = [arrayPosition[1] intValue] + (7 - [arrayPosition[0] intValue])*8;
+                            UIView *chessRemove = [self.view viewWithTag:tag+100];
+                            if (chessRemove) {
+                                [chessRemove removeFromSuperview];
+                            }
+                        }
+                        chess.center = CGPointMake(((CGFloat)([arrayPosition[1] intValue])*kCellWidth + kCellWidth/2), (CGFloat)((7 - [arrayPosition[0] intValue])*kCellWidth + kCellWidth/2));
+                        chess.tag = 200 + [arrayPosition[1] intValue] + (7 - [arrayPosition[0] intValue]*8);
+                        if ([arrayPosition[0] intValue] == 0 && ([chess.nameChess isEqualToString:[chess convertToString:Pawn]] || [chess.nameChess isEqualToString:[NSString stringWithFormat:@"white%@", [chess convertToString:Pawn]]])) {
+                            NSString *tempName = chess.nameChess;
+                            NSRange textRange = [tempName rangeOfString:@"white"];
+                            tempName = [tempName substringFromIndex:textRange.length];
+                            if (chess.nameChess != tempName) {
+                                chess.nameChess = @"whiteQueen";
+                            } else {
+                                chess.nameChess = @"Queen";
+                            }
+                            chess.imageView.image = [UIImage imageNamed:chess.nameChess];
+                        }
+                        previousChess = chess;
+                        chess.layer.borderWidth = 2;
+                        chess.layer.borderColor = [UIColor redColor].CGColor;
+                    }
+                    baseArray[7-[arrayPreviousPosition[0] intValue]][[arrayPreviousPosition[1] intValue]] = @0;
+                    baseArray[7 - [arrayPosition[0] intValue]][[arrayPosition[1] intValue]] = @1;
+                }
+            }
+        }
+    }];
+    
+}
+
+
 - (void)setupTableChess {
-    self.labelPlayer.text = currentPlayer;
+    self.labelPlayer.text = self.currentPlayer;
     containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width - margin*2.0, self.view.bounds.size.width - margin*2.0)];
     
     containerView.backgroundColor = [UIColor blackColor];
@@ -185,6 +265,7 @@
             if ([baseArray[row][col]  isEqual: @0]) {
                 baseArray[row][col] = @1;
                 //[self sendData]//
+                [self sendDataWithCurrentPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]] withPreviousPosition:currentPosition andChess:chess];
                 
                 
             }
@@ -193,10 +274,12 @@
                 if (chessRemove) {
                     [chessRemove removeFromSuperview];
                     if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
+                        [self sendWinner];
                         //[self sendWinner];//
                         return;
                     }
                     //[self sendData]//
+                    [self sendDataWithCurrentPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]] withPreviousPosition:currentPosition andChess:chess];
                 } else {
                     chess.center= CGPointMake((CGFloat)([currentPosition[1] intValue]) * kCellWidth + kCellWidth/2, (CGFloat)([currentPosition[0] intValue]) * kCellWidth + kCellWidth/2);
                 }
@@ -205,6 +288,31 @@
         } else {
             chess.center= CGPointMake((CGFloat)([currentPosition[1] intValue]) * kCellWidth + kCellWidth/2, (CGFloat)([currentPosition[0] intValue]) * kCellWidth + kCellWidth/2);        }
     }
+}
+
+- (void)sendDataWithCurrentPosition:(NSArray*)curPos withPreviousPosition:(NSArray*)prePos andChess:(ChessView*)chess {
+//    NSDictionary *dict = @{@"horse" : @"1.2"};
+//    chess.chessPosition = dict;
+    ChessObj *chessObj = [[ChessObj alloc] initWithNameChess:chess.nameChess withChessPosition:curPos withPreviousChessPosition:prePos withPlayerMove:self.currentPlayer andBaseArray:chess.baseArray];
+    
+    NSDictionary *dictChessObj = @{@"nameChess" : chessObj.nameChess, @"chessPosition" : chessObj.chessPosition, @"previousChessPosition" : chessObj.previousChessPosition, @"playerMove" : chessObj.playerMove};
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictChessObj options:0 error:nil];
+    NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    [[self.ref childByAppendingPath:@"data"] setValue:json];
+}
+
+- (void)sendWinner {
+    [[self.ref childByAppendingPath:@"data"] setValue:@{@"winner" : self.currentPlayer}];
+}
+
+- (void)reset {
+    for (UIView *tmpChess in containerView.subviews) {
+        ChessView *chess = (ChessView*)tmpChess;
+        [chess removeFromSuperview];
+    }
+    [self addChessPlayerWithTag:100 andSubName:subNamePlayer];
+    [self addChessRivalWithTag:200 andSubName:subNameRival];
 }
 
 @end

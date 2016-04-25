@@ -324,7 +324,7 @@
     switch (wayToCheck) {
         case 0:
             //rightUp
-            for (int i=1; row - i >[pointB[0] intValue]; i++) {
+            for (int i=1; row - i >=[pointB[0] intValue]; i++) {
                 if (![self.baseArray[row-i][col+i]  isEqual: @0]) {
                     return false;
                 }
@@ -332,7 +332,7 @@
             break;
         case 1:
             //rightDown
-            for (int i=1; i+row<[pointB[0] intValue]; i++) {
+            for (int i=1; i+row<=[pointB[0] intValue]; i++) {
                 if (![self.baseArray[row+i][col+i]  isEqual: @0]) {
                     return false;
                 }
@@ -340,7 +340,7 @@
             break;
         case 2:
             //leftUp
-            for (int i=1; row-i>[pointB[0] intValue]; i++) {
+            for (int i=1; row-i>=[pointB[0] intValue]; i++) {
                 if (![self.baseArray[row-i][col-i]  isEqual: @0]) {
                     return false;
                 }
@@ -348,7 +348,7 @@
             break;
         case 3:
             //leftDown
-            for (int i=1; i+row<[pointB[0] intValue]; i++) {
+            for (int i=1; i+row<=[pointB[0] intValue]; i++) {
                 if (![self.baseArray[row+i][col-i]  isEqual: @0]) {
                     return false;
                 }

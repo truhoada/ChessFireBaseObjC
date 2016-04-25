@@ -10,4 +10,7 @@
 
 @interface PlayScreen : UIViewController
 
+@property(nonatomic, strong) NSString *currentPlayer;
+
+
 @end
