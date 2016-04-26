@@ -74,8 +74,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 //    self.currentPlayer = @"Computer";
     currentRival = @"NoName";
-    subNamePlayer = @"white";
-    subNameRival = @"";
+    subNamePlayer = @"";
+    subNameRival = @"white";
     baseArray = [[NSMutableArray alloc] initWithObjects:
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
@@ -216,7 +216,11 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 }
 
 - (void)sendWinner {
-    [[self.ref childByAppendingPath:@"data"] setValue:@{@"winner" : self.currentPlayer}];
+    NSDictionary *dictWinner = @{@"winner" : self.currentPlayer};
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictWinner options:0 error:nil];
+    NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    [[self.ref childByAppendingPath:@"data"] setValue:json];
 }
 
 - (void)reset {
