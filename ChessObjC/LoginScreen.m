@@ -63,7 +63,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
             if (error == nil) {
                 [self loginWithEmail:email andPassword:password];
             } else {
-                NSLog(@"Sign Up Error");
+                NSLog(@"Sign Up Error %@", error);
                 //https://www.firebase.com/docs/web/guide/user-auth.html#section-full-error
             }
         }];

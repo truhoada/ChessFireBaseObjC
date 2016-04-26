@@ -10,139 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483276044.352646"
+            timestampString = "483358630.365765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "-sendDataWithCurrentPosition:withPreviousPosition:andChess:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483273772.307888"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-configFireBase"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483273772.307888"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-configFireBase"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[PlayScreen configFireBase]"
-                  moduleName = "ChessObjC"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hoangdangtrung/Desktop/ChessObjC/ChessObjC/PlayScreen.m"
-                  timestampString = "483275886.869213"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "171">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[PlayScreen configFireBase]_block_invoke"
-                  moduleName = "ChessObjC"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hoangdangtrung/Desktop/ChessObjC/ChessObjC/PlayScreen.m"
-                  timestampString = "483275886.869388"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "87"
-                  endingLineNumber = "87"
-                  offsetFromSymbolStart = "79">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483273772.307888"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-configFireBase"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[PlayScreen configFireBase]_block_invoke"
-                  moduleName = "ChessObjC"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hoangdangtrung/Desktop/ChessObjC/ChessObjC/PlayScreen.m"
-                  timestampString = "483275886.891821"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "93">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[PlayScreen configFireBase]_block_invoke"
-                  moduleName = "ChessObjC"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hoangdangtrung/Desktop/ChessObjC/ChessObjC/PlayScreen.m"
-                  timestampString = "483275886.892015"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483276044.352646"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "-handlePan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -153,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ChessObjC/LoginScreen.m"
-            timestampString = "483275675.935591"
+            filePath = "ChessObjC/PlayScreen.m"
+            timestampString = "483358630.365765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "-doPlayButton:"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-configFireBase"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -170,12 +42,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483275843.831802"
+            timestampString = "483358630.365765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "-setupValue"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-configFireBase"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessObjC/PlayScreen.m"
+            timestampString = "483358630.365765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-configFireBase"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessObjC/PlayScreen.m"
+            timestampString = "483358630.365765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-configFireBase"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChessObjC/PlayScreen.m"
+            timestampString = "483358630.365765"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-configFireBase"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
