@@ -13,7 +13,7 @@
 static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com/";
 
 
-@interface LoginScreen ()
+@interface LoginScreen ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textFieldEmail;
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 @property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
@@ -23,6 +23,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 @property(nonatomic, strong) Firebase *ref;
 @property(nonatomic, strong) Firebase *currentUser;
+@property(nonatomic, strong) UIAlertController *alertController;
 
 
 @end
@@ -31,19 +32,25 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.textFieldEmail.delegate = self;
+    self.textFieldPassword.delegate = self;
     
-    if ([self firebaseIsSetup]) {
-        self.ref = [[Firebase alloc] initWithUrl:kFirebaseURL];
-    }
     
-//    NSString *userID = [[NSUserDefaults standardUserDefaults] valueForKey:@"uid"];
-//    self.currentUser = [[[[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@", self.ref]] childByAppendingPath:@"users"] childByAppendingPath:userID];
+    self.ref = [[Firebase alloc] initWithUrl:kFirebaseURL];
+    
+    //    NSString *userID = [[NSUserDefaults standardUserDefaults] valueForKey:@"uid"];
+    //    self.currentUser = [[[[Firebase alloc] initWithUrl:[NSString stringWithFormat:@"%@", self.ref]] childByAppendingPath:@"users"] childByAppendingPath:userID];
+    self.textFieldEmail.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"currentUserName"];
+    self.textFieldPassword.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"password"];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    
+    UIBarButtonItem *myBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Quit" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = myBackButton;
 }
 
 - (IBAction)doSignInButton:(id)sender {
@@ -51,7 +58,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     NSString *password = self.textFieldPassword.text;
     
     [self loginWithEmail:email andPassword:password];
-
+    
 }
 
 - (IBAction)doSignUpButton:(id)sender {
@@ -74,8 +81,15 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 - (IBAction)doPlayButton:(id)sender {
     PlayScreen *playScreen = [self.storyboard instantiateViewControllerWithIdentifier:@"PlayScreen"];
-    playScreen.currentPlayer = [[NSUserDefaults standardUserDefaults] valueForKey:@"username"];
-    [self.navigationController pushViewController:playScreen animated:YES];
+    
+    if ([self.textFieldEmail.text isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"currentUserName"]]) {
+        playScreen.currentPlayer = self.textFieldEmail.text;
+        [self.navigationController pushViewController:playScreen animated:YES];
+    } else {
+        [self showAlertWithTitle:@"Please Sign In" andMessage:nil];
+    }
+    
+    
 }
 
 - (IBAction)doSignOutButton:(id)sender {
@@ -86,25 +100,41 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         [self.ref authUser:email password:pass withCompletionBlock:^(NSError *error, FAuthData *authData) {
             if (error == nil) {
                 [[NSUserDefaults standardUserDefaults] setValue:authData.uid forKey:@"uid"];
-                [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"username"];
-                NSLog(@"OK");
+                [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"currentUserName"];
+                [[NSUserDefaults standardUserDefaults] setValue:pass forKey:@"password"];
+                [[NSUserDefaults standardUserDefaults] setValue:pass forKey:email];
+                
+                [self showAlertWithTitle:@"Sign In Success" andMessage:@"Press PLAY now"];
                 
             } else {
-                NSLog(@"Errorxx");
+                [self showAlertWithTitle:@"Sign In Fail" andMessage:error.description];
             }
         }];
     } else {
-        NSLog(@"Errorxxx2");
+        [self showAlertWithTitle:@"Sign In Fail" andMessage:@"Email or Password incorect"];
     }
 }
 
 
-- (BOOL)firebaseIsSetup {
-    if ([@"https://chess-techmaster.firebaseIO.com" isEqualToString:kFirebaseURL]) {
-        return YES;
-    } else {
-        return YES;
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.textFieldEmail resignFirstResponder];
+    [self.textFieldPassword resignFirstResponder];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:self.textFieldEmail.text]) {
+         self.textFieldPassword.text = [[NSUserDefaults standardUserDefaults] valueForKey:self.textFieldEmail.text];
     }
+   
+    return YES;
+}
+
+- (void)showAlertWithTitle:(NSString*)title andMessage:(NSString*)mess {
+    self.alertController = [UIAlertController alertControllerWithTitle:title message:mess preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [self.alertController addAction:cancel];
+    
+    [self presentViewController:self.alertController animated:YES completion:nil];
 }
 
 

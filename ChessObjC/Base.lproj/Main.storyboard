@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6Se-2H-VzO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6Se-2H-VzO">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -21,27 +22,25 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background3.png" translatesAutoresizingMaskIntoConstraints="NO" id="7kP-7w-6VI">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="example@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cG8-sf-PzE">
-                                <rect key="frame" x="46" y="179" width="282" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="in2-25-dSe"/>
-                                    <constraint firstAttribute="width" constant="282" id="otF-SC-AZP"/>
-                                </constraints>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="example@gmail.com" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cG8-sf-PzE">
+                                <rect key="frame" x="29" y="163" width="317" height="50"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="*******************" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="clG-vt-2jk">
-                                <rect key="frame" x="46" y="248" width="282" height="50"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="*******************" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="clG-vt-2jk">
+                                <rect key="frame" x="29" y="233" width="317" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="6Lx-1d-znE"/>
-                                    <constraint firstAttribute="width" constant="282" id="7lM-Ai-Lrq"/>
+                                    <constraint firstAttribute="width" secondItem="clG-vt-2jk" secondAttribute="height" multiplier="141:25" constant="35" id="AKG-yc-3t0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LL-Y0-aOC">
-                                <rect key="frame" x="127" y="401" width="121" height="57"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3LL-Y0-aOC">
+                                <rect key="frame" x="97" y="410" width="181" height="73"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3LL-Y0-aOC" secondAttribute="height" multiplier="181:73" id="Ynj-Pl-AvM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="42"/>
                                 <state key="normal" title="Play" backgroundImage="button1.png">
                                     <color key="titleColor" red="0.20000000298023224" green="0.20000000298023224" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -49,8 +48,11 @@
                                     <action selector="doPlayButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SkO-ab-75a"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfE-i6-rBW">
-                                <rect key="frame" x="66" y="322" width="120" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfE-i6-rBW">
+                                <rect key="frame" x="57" y="312" width="120" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lfE-i6-rBW" secondAttribute="height" multiplier="30:11" id="2Kd-x6-2Wf"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Sign In" backgroundImage="button3.png">
                                     <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,18 +61,11 @@
                                     <action selector="doSignInButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t4b-oV-ihA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBl-14-zw5">
-                                <rect key="frame" x="127" y="546" width="120" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <state key="normal" title="Sign Out" backgroundImage="button3.png">
-                                    <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="doSignOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8HV-Ed-6W6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8b8-qC-Z9U">
-                                <rect key="frame" x="194" y="322" width="120" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8b8-qC-Z9U">
+                                <rect key="frame" x="198" y="312" width="120" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8b8-qC-Z9U" secondAttribute="height" multiplier="30:11" id="F47-fr-WQc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Sign Up" backgroundImage="button3.png">
                                     <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -79,17 +74,56 @@
                                     <action selector="doSignUpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H0X-1A-qSY"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2P-1I-mNb">
+                                <rect key="frame" x="179" y="325" width="16" height="18"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Bfm-2f-bf6"/>
+                                    <constraint firstAttribute="width" constant="16" id="s0T-8y-Rzj"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBl-14-zw5">
+                                <rect key="frame" x="118" y="536" width="138" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="mBl-14-zw5" secondAttribute="height" multiplier="30:11" constant="18.000000000000014" id="heZ-dO-wxE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Sign Out" backgroundImage="button3.png">
+                                    <color key="titleColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doSignOutButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8HV-Ed-6W6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7kP-7w-6VI" secondAttribute="bottom" id="0CT-eO-SDY"/>
-                            <constraint firstItem="cG8-sf-PzE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3IH-ha-wTj"/>
+                            <constraint firstItem="cG8-sf-PzE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0DW-N4-Lyl"/>
+                            <constraint firstItem="lfE-i6-rBW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0N4-qo-01a"/>
+                            <constraint firstItem="C2P-1I-mNb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1kh-WN-Xo0"/>
+                            <constraint firstItem="3LL-Y0-aOC" firstAttribute="top" secondItem="8b8-qC-Z9U" secondAttribute="bottom" constant="54" id="21B-JS-g3m"/>
+                            <constraint firstItem="8b8-qC-Z9U" firstAttribute="top" secondItem="lfE-i6-rBW" secondAttribute="top" id="2Ko-Et-3ua"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7kP-7w-6VI" secondAttribute="trailing" constant="-20" id="6nI-Uk-QFN"/>
+                            <constraint firstItem="clG-vt-2jk" firstAttribute="top" secondItem="cG8-sf-PzE" secondAttribute="bottom" constant="20" id="8FQ-5c-ea6"/>
+                            <constraint firstItem="C2P-1I-mNb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AQ7-kc-FUM"/>
                             <constraint firstItem="7kP-7w-6VI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="GS9-y0-nbw"/>
-                            <constraint firstItem="cG8-sf-PzE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="159" id="Hcr-5f-j0e"/>
+                            <constraint firstItem="mBl-14-zw5" firstAttribute="top" secondItem="3LL-Y0-aOC" secondAttribute="bottom" constant="53" id="IGx-m9-zl5"/>
+                            <constraint firstItem="clG-vt-2jk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Nwt-k8-9cI"/>
                             <constraint firstItem="7kP-7w-6VI" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="SKs-9a-hnP"/>
-                            <constraint firstItem="clG-vt-2jk" firstAttribute="top" secondItem="cG8-sf-PzE" secondAttribute="bottom" constant="19" id="e2l-Lb-Dwh"/>
-                            <constraint firstItem="clG-vt-2jk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q9Z-N1-toj"/>
+                            <constraint firstItem="8b8-qC-Z9U" firstAttribute="leading" secondItem="C2P-1I-mNb" secondAttribute="trailing" constant="3" id="WdP-53-RyR"/>
+                            <constraint firstItem="8b8-qC-Z9U" firstAttribute="width" secondItem="7kP-7w-6VI" secondAttribute="height" multiplier="120:667" id="fnx-Bj-zIR"/>
+                            <constraint firstItem="3LL-Y0-aOC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fyE-qa-Chr"/>
+                            <constraint firstItem="8b8-qC-Z9U" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gim-Q4-W5s"/>
+                            <constraint firstItem="clG-vt-2jk" firstAttribute="height" secondItem="cG8-sf-PzE" secondAttribute="height" id="hz9-Ka-DVQ"/>
+                            <constraint firstItem="clG-vt-2jk" firstAttribute="width" secondItem="7kP-7w-6VI" secondAttribute="height" multiplier="282:667" constant="35" id="l50-R9-UiX"/>
+                            <constraint firstItem="lfE-i6-rBW" firstAttribute="width" secondItem="7kP-7w-6VI" secondAttribute="height" multiplier="120:667" id="lGN-Pg-NS3"/>
+                            <constraint firstItem="C2P-1I-mNb" firstAttribute="leading" secondItem="lfE-i6-rBW" secondAttribute="trailing" constant="2" id="lnV-Pg-vjF"/>
+                            <constraint firstItem="clG-vt-2jk" firstAttribute="width" secondItem="cG8-sf-PzE" secondAttribute="width" id="oFk-1U-zmY"/>
+                            <constraint firstItem="lfE-i6-rBW" firstAttribute="top" secondItem="clG-vt-2jk" secondAttribute="bottom" constant="29" id="oar-3n-V56"/>
+                            <constraint firstItem="3LL-Y0-aOC" firstAttribute="width" secondItem="7kP-7w-6VI" secondAttribute="height" multiplier="181:667" id="qat-mv-iYo"/>
+                            <constraint firstItem="mBl-14-zw5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uKW-DM-7Lc"/>
+                            <constraint firstItem="mBl-14-zw5" firstAttribute="width" secondItem="7kP-7w-6VI" secondAttribute="height" multiplier="120:667" constant="17.999999999999986" id="zGY-vC-Qod"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="q7i-y8-LiI"/>
@@ -145,7 +179,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vv3-wC-PY5">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Se-2H-VzO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="6Se-2H-VzO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="g4h-7I-hz2">

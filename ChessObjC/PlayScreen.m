@@ -42,7 +42,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.title = @"Funny Chess";
     
     [self setupValue];
     [self setupTableChess];
@@ -57,6 +57,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     }
     
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
