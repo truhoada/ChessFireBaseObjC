@@ -11,6 +11,8 @@
 @interface PlayScreen : UIViewController
 
 @property(nonatomic, strong) NSString *currentPlayer;
+@property(nonatomic, strong) NSString *colorPlayer;
+
 
 
 @end

@@ -33,7 +33,6 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     NSArray *arrayNamesBlack;
 
     NSMutableArray *baseArray;
-    NSString *currentRival;
     NSString *subNamePlayer;
     NSString *subNameRival;
     UIView *previousChess;
@@ -56,6 +55,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         [self lockPlayerWithRow:0 withCol:0 andLock:true];
     }
     
+    [self animateImageNextTurnPlayer];
 }
 
 
@@ -73,11 +73,15 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     currentPosition= [[NSMutableArray alloc] initWithObjects:@0, @0, nil];
     arrayNamesWhite = @[@"Rook", @"Knight", @"Bishop", @"Queen", @"King", @"Pawn"];
     arrayNamesBlack = @[@"Rook", @"Knight", @"Bishop", @"King", @"Queen", @"Pawn"];
+    
+    if ([self.colorPlayer isEqualToString:@"white"]) {
+        subNamePlayer = self.colorPlayer;
+        subNameRival = @"";
+    } else {
+        subNameRival = @"white";
+        subNamePlayer = @"";
+    }
 
-//    self.currentPlayer = @"Computer";
-    currentRival = @"NoName";
-    subNamePlayer = @"";
-    subNameRival = @"white";
     baseArray = [[NSMutableArray alloc] initWithObjects:
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
@@ -98,16 +102,19 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     [self.ref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         for (FDataSnapshot *childSnap in snapshot.children.allObjects) {
             
-//            if ([childSnap.value objectForKey:@"winner"] == nil) {
-//                NSString *winner = childSnap.value[@"winner"];
-//                    NSLog(@"You win!");
-//                    return;
-//            }
-          
             NSString *json = childSnap.value;
             if (json) {
+                
                 NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary *jsonTmp = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                
+                NSString *winner = jsonTmp[@"winner"];
+                if (winner) {
+                    [self showAlertWinnerWithName:winner];
+                    return;
+                }
+                
+                
                 NSArray *arrayPosition = jsonTmp[@"chessPosition"];
                 NSArray *arrayPreviousPosition = jsonTmp[@"previousChessPosition"];
                 int tag = (7 - [arrayPreviousPosition[1] intValue]) + (7 - [arrayPreviousPosition[0] intValue])*8;
@@ -189,7 +196,6 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                     [chessRemove removeFromSuperview];
                     if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
                         [self sendWinner];
-                        //[self sendWinner];//
                         return;
                     }
                     //[self sendData]//
@@ -206,8 +212,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 }
 
 - (void)sendDataWithCurrentPosition:(NSArray*)curPos withPreviousPosition:(NSArray*)prePos andChess:(ChessView*)chess {
-    //    NSDictionary *dict = @{@"horse" : @"1.2"};
-    //    chess.chessPosition = dict;
+   
     ChessObj *chessObj = [[ChessObj alloc] initWithNameChess:chess.nameChess withChessPosition:curPos withPreviousChessPosition:prePos withPlayerMove:self.currentPlayer andBaseArray:chess.baseArray];
     
     NSDictionary *dictChessObj = @{@"nameChess" : chessObj.nameChess, @"chessPosition" : chessObj.chessPosition, @"previousChessPosition" : chessObj.previousChessPosition, @"playerMove" : chessObj.playerMove};
@@ -359,6 +364,39 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 }
 
 
+- (void)animateImageNextTurnPlayer {
+    NSString *name;
+    if (lock) {
+        name = [subNameRival isEqualToString:@""] ? @"Pawn" : @"whitePawn";
+    } else {
+        name = [subNamePlayer isEqualToString:@""] ? @"Pawn" : @"whitePawn";
+    }
+    self.imgNextTurnPlayer.image = [UIImage imageNamed:name];
+    self.imgNextTurnPlayer.alpha = 0;
+    [UIView animateWithDuration:2 animations:^{
+        self.imgNextTurnPlayer.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        [self animateImageNextTurnPlayer];
+    }];
+}
+
+- (void)showAlertWinnerWithName: (NSString*)nameWinner {
+    NSString *title;
+    NSString *message;
+    
+    if ([nameWinner isEqualToString:self.currentPlayer]) {
+        title = @"Congratulation!";
+        message = @"You Win!";
+    } else {
+        title = @"Game Over";
+        message = @"You lost";
+    }
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancel];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 @end
 

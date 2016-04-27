@@ -28,10 +28,14 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 @end
 
-@implementation LoginScreen
+@implementation LoginScreen {
+    NSString *colorPlayer;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    colorPlayer = @"white";
+    
     self.textFieldEmail.delegate = self;
     self.textFieldPassword.delegate = self;
     
@@ -51,6 +55,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     
     UIBarButtonItem *myBackButton = [[UIBarButtonItem alloc] initWithTitle:@"Quit" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = myBackButton;
+    
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
 }
 
 - (IBAction)doSignInButton:(id)sender {
@@ -58,7 +64,6 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     NSString *password = self.textFieldPassword.text;
     
     [self loginWithEmail:email andPassword:password];
-    
 }
 
 - (IBAction)doSignUpButton:(id)sender {
@@ -68,14 +73,18 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     if (![email  isEqual: @""] && ![password  isEqual: @""]) {
         [self.ref createUser:email password:password withValueCompletionBlock:^(NSError *error, NSDictionary *result) {
             if (error == nil) {
-                [self loginWithEmail:email andPassword:password];
+                [self showAlertWithTitle:@"Sign Up Success" andMessage:@"Sign In Now"];
             } else {
-                NSLog(@"Sign Up Error %@", error);
+                NSString *err = error.localizedDescription;
+                NSRange errRange = [err rangeOfString:@")"];
+                err = [err substringFromIndex:errRange.location+2];
+                
+                [self showAlertWithTitle:@"Fail" andMessage:err];
                 //https://www.firebase.com/docs/web/guide/user-auth.html#section-full-error
             }
         }];
     } else {
-        NSLog(@"Sign Up Error 2");
+        [self showAlertWithTitle:@"Fail" andMessage:@"Miss Email or Password"];
     }
 }
 
@@ -84,6 +93,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     
     if ([self.textFieldEmail.text isEqualToString:[[NSUserDefaults standardUserDefaults] valueForKey:@"currentUserName"]]) {
         playScreen.currentPlayer = self.textFieldEmail.text;
+        playScreen.colorPlayer = colorPlayer;
         [self.navigationController pushViewController:playScreen animated:YES];
     } else {
         [self showAlertWithTitle:@"Please Sign In" andMessage:nil];
@@ -92,8 +102,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     
 }
 
-- (IBAction)doSignOutButton:(id)sender {
-}
+//- (IBAction)doSignOutButton:(id)sender {
+//}
 
 - (void)loginWithEmail:(NSString*)email andPassword:(NSString*)pass {
     if (![email  isEqual: @""] && ![pass  isEqual: @""]) {
@@ -107,11 +117,15 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                 [self showAlertWithTitle:@"Sign In Success" andMessage:@"Press PLAY now"];
                 
             } else {
-                [self showAlertWithTitle:@"Sign In Fail" andMessage:error.description];
+                NSString *err = error.localizedDescription;
+                NSRange errRange = [err rangeOfString:@")"];
+                err = [err substringFromIndex:errRange.location+2];
+                
+                [self showAlertWithTitle:@"Sign In Fail" andMessage:err];
             }
         }];
     } else {
-        [self showAlertWithTitle:@"Sign In Fail" andMessage:@"Email or Password incorect"];
+        [self showAlertWithTitle:@"Sign In Fail" andMessage:@"Miss Email or Password"];
     }
 }
 
@@ -136,6 +150,17 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     
     [self presentViewController:self.alertController animated:YES completion:nil];
 }
+
+- (IBAction)doSegmentControl:(UISegmentedControl *)sender {
+    NSInteger selectedSegment = sender.selectedSegmentIndex;
+    if (selectedSegment == 0) {
+        colorPlayer = @"white";
+    }
+    else{
+        colorPlayer = @"black";
+    }
+}
+
 
 
 @end
