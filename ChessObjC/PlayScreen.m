@@ -183,9 +183,13 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         int tag = 200 + col + row*8;
         
         if ((col<8 && row<8) && (col>=0 && row>=0) && (([chess calculatePositionWithCurrentPosition:currentPosition andDestinationPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]]] == true))) {
-            baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
-            chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
+            
+            
             if ([baseArray[row][col]  isEqual: @0]) {
+                
+                baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
+                chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
+                
                 baseArray[row][col] = @1;
                 //[self sendData]//
                 [self sendDataWithCurrentPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]] withPreviousPosition:currentPosition andChess:chess];
@@ -194,6 +198,10 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                 ChessView *chessRemove = [self.view viewWithTag:tag];
                 if (chessRemove) {
                     [chessRemove removeFromSuperview];
+                    
+                    baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
+                    chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
+                    
                     if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
                         [self sendWinner];
                         return;

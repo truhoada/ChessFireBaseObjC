@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ChessObjC/PlayScreen.m"
-            timestampString = "483435291.345685"
+            timestampString = "483593413.713267"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "-sendWinner"
             landmarkType = "5">
          </BreakpointContent>
