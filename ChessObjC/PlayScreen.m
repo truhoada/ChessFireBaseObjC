@@ -52,7 +52,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     
     if ([subNameRival  isEqual: @"white"]) {
         lock = true;
-        [self lockPlayerWithRow:0 withCol:0 andLock:true];
+        [self lockPlayer:true];
     }
     
     [self animateImageNextTurnPlayer];
@@ -119,7 +119,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                 NSArray *arrayPreviousPosition = jsonTmp[@"previousChessPosition"];
                 int tag = (7 - [arrayPreviousPosition[1] intValue]) + (7 - [arrayPreviousPosition[0] intValue])*8;
                 if ([self.currentPlayer isEqualToString:jsonTmp[@"playerMove"]]) {
-                    [self lockPlayerWithRow:[arrayPosition[0] intValue] withCol:[arrayPosition[1] intValue] andLock:true];
+                    [self lockPlayer:true];
                     //
                     [self.view.layer removeAllAnimations];
                     lock = true;
@@ -129,7 +129,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                     }
                     lock = false;
 //                    Lock Player
-                    [self lockPlayerWithRow:[arrayPosition[0] intValue] withCol:[arrayPosition[1] intValue] andLock:false];
+                    [self lockPlayer:false];
                     ChessView *chess = [self.view viewWithTag:tag + 200];
                     if (chess) {
                         if (![baseArray[7 - [arrayPosition[0] intValue]][7 - [arrayPosition[1] intValue]]  isEqual: @0]) {
@@ -204,6 +204,10 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                     
                     if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
                         [self sendWinner];
+                        [self lockPlayer:true];
+
+                        
+                        
                         return;
                     }
                     //[self sendData]//
@@ -247,7 +251,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     [self addChessRivalWithTag:200 andSubName:subNameRival];
 }
 
-- (void)lockPlayerWithRow:(int)row withCol:(int)col andLock:(BOOL)isLock {
+- (void)lockPlayer:(BOOL)isLock {
     for (int rowIndex=0; rowIndex<8; rowIndex++) {
         for (int colIndex=0; colIndex<8; colIndex++) {
             int tag = 100 + colIndex + (rowIndex*8);
