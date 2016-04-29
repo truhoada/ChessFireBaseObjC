@@ -32,7 +32,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
     NSArray *arrayNamesWhite;
     NSArray *arrayNamesBlack;
 
-    NSMutableArray *baseArray;
+    NSMutableArray *flagArray;
     NSString *subNamePlayer;
     NSString *subNameRival;
     UIView *previousChess;
@@ -78,11 +78,11 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         subNamePlayer = self.colorPlayer;
         subNameRival = @"";
     } else {
-        subNameRival = @"white";
-        subNamePlayer = @"";
+        subNameRival = @"";
+        subNamePlayer = @"white";
     }
 
-    baseArray = [[NSMutableArray alloc] initWithObjects:
+    flagArray = [[NSMutableArray alloc] initWithObjects:
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
                  [NSMutableArray arrayWithObjects:@0, @0, @0, @0, @0, @0, @0, @0, nil],
@@ -132,7 +132,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                     [self lockPlayer:false];
                     ChessView *chess = [self.view viewWithTag:tag + 200];
                     if (chess) {
-                        if (![baseArray[7 - [arrayPosition[0] intValue]][7 - [arrayPosition[1] intValue]]  isEqual: @0]) {
+                        if (![flagArray[7 - [arrayPosition[0] intValue]][7 - [arrayPosition[1] intValue]]  isEqual: @0]) {
                             int tag = (7 - [arrayPosition[1] intValue]) + (7 - [arrayPosition[0] intValue])*8;
                             ChessView *chessRemove = [self.view viewWithTag:tag+100];
                             if (chessRemove) {
@@ -156,8 +156,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                         chess.layer.borderWidth = 2;
                         chess.layer.borderColor = [UIColor redColor].CGColor;
                     }
-                    baseArray[7-[arrayPreviousPosition[0] intValue]][7 - [arrayPreviousPosition[1] intValue]] = @0;
-                    baseArray[7 - [arrayPosition[0] intValue]][7 - [arrayPosition[1] intValue]] = @1;
+                    flagArray[7-[arrayPreviousPosition[0] intValue]][7 - [arrayPreviousPosition[1] intValue]] = @0;
+                    flagArray[7 - [arrayPosition[0] intValue]][7 - [arrayPosition[1] intValue]] = @1;
                 }
             }
         }
@@ -169,7 +169,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 - (void)handlePan: (UIGestureRecognizer*)pan {
     
     ChessView *chess = (ChessView*)[pan view];
-    chess.baseArray = baseArray;
+    chess.flagArray = flagArray;
     CGPoint position = [pan locationInView:containerView];
     if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged) {
         chess.center = position;
@@ -185,12 +185,12 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         if ((col<8 && row<8) && (col>=0 && row>=0) && (([chess calculatePositionWithCurrentPosition:currentPosition andDestinationPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]]] == true))) {
             
             
-            if ([baseArray[row][col]  isEqual: @0]) {
+            if ([flagArray[row][col]  isEqual: @0]) {
                 
-                baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
+                flagArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
                 chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
                 
-                baseArray[row][col] = @1;
+                flagArray[row][col] = @1;
                 //[self sendData]//
                 [self sendDataWithCurrentPosition:@[[NSNumber numberWithInt:row], [NSNumber numberWithInt:col]] withPreviousPosition:currentPosition andChess:chess];
                 
@@ -199,7 +199,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
                 if (chessRemove) {
                     [chessRemove removeFromSuperview];
                     
-                    baseArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
+                    flagArray[[currentPosition[0] intValue]][[currentPosition[1] intValue]] = @0;
                     chess.center= CGPointMake((CGFloat)col * kCellWidth + kCellWidth/2, (CGFloat)row * kCellWidth + kCellWidth/2);
                     
                     if ([chessRemove.nameChess isEqualToString:[chessRemove convertToString:King]] || [chessRemove.nameChess isEqualToString:[NSString stringWithFormat:@"%@%@", @"white", [chessRemove convertToString:King]]]) {
@@ -225,7 +225,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
 
 - (void)sendDataWithCurrentPosition:(NSArray*)curPos withPreviousPosition:(NSArray*)prePos andChess:(ChessView*)chess {
    
-    ChessObj *chessObj = [[ChessObj alloc] initWithNameChess:chess.nameChess withChessPosition:curPos withPreviousChessPosition:prePos withPlayerMove:self.currentPlayer andBaseArray:chess.baseArray];
+    ChessObj *chessObj = [[ChessObj alloc] initWithNameChess:chess.nameChess withChessPosition:curPos withPreviousChessPosition:prePos withPlayerMove:self.currentPlayer andFlagArray:chess.flagArray];
     
     NSDictionary *dictChessObj = @{@"nameChess" : chessObj.nameChess, @"chessPosition" : chessObj.chessPosition, @"previousChessPosition" : chessObj.previousChessPosition, @"playerMove" : chessObj.playerMove};
     
@@ -315,8 +315,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
             ChessView *chess = [[ChessView alloc] initWithFrame:rect];
             chess.tag = tag + colIndex + rowIndex*8;
             chess.nameChess = name;
-            baseArray[rowIndex][colIndex] = @1;
-            chess.baseArray = baseArray;
+            flagArray[rowIndex][colIndex] = @1;
+            chess.flagArray = flagArray;
             UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
             
             pan.delegate = self;
@@ -359,8 +359,8 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
             ChessView *chess = [[ChessView alloc] initWithFrame:rect];
             chess.tag = tag + colIndex + rowIndex*8;
             chess.nameChess = name;
-            baseArray[rowIndex][colIndex] = @1;
-            chess.baseArray = baseArray;
+            flagArray[rowIndex][colIndex] = @1;
+            chess.flagArray = flagArray;
             
             chess.imageView.image = img;
             [containerView addSubview:chess];

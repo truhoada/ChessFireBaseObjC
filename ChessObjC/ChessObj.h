@@ -14,6 +14,6 @@
 @property(nonatomic, strong) NSString *nameChess;
 @property(nonatomic, strong) NSArray *previousChessPosition;
 
-- (instancetype)initWithNameChess: (NSString*)name withChessPosition: (NSArray*)chessPosition withPreviousChessPosition: (NSArray*)prePosition withPlayerMove: (NSString*)playerMove andBaseArray: (NSArray*)baseArray;
+- (instancetype)initWithNameChess: (NSString*)name withChessPosition: (NSArray*)chessPosition withPreviousChessPosition: (NSArray*)prePosition withPlayerMove: (NSString*)playerMove andFlagArray: (NSArray*)flagArray;
 
 @end

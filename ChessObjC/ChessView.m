@@ -114,13 +114,13 @@
                 self.imageView.image = [UIImage imageNamed:self.nameChess];
             }
             if (type == 1) {
-                if (![self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
+                if (![self.flagArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
                     return true;
                 }
                 return false;
             }
             if (type == 2) {
-                if (![self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
+                if (![self.flagArray[[desPos[0] intValue]][[desPos[1] intValue]]  isEqual: @0]) {
                     return false;
                 }
                 return [self checkStraightWithCurrentPosition:curPos andDestinationPosition:desPos];
@@ -178,7 +178,7 @@
     //2:leftUp
     //3:leftDown
     
-    if (abs([curPos[0] intValue] - [desPos[0] intValue]) == 1 && abs([curPos[1] intValue] - [desPos[1] intValue]) == 1 && [self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
+    if (abs([curPos[0] intValue] - [desPos[0] intValue]) == 1 && abs([curPos[1] intValue] - [desPos[1] intValue]) == 1 && [self.flagArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
         //
         return true;
     }
@@ -209,7 +209,7 @@
     //1:Down
     //2:Left
     //3:Right
-    if (((abs([curPos[0] intValue] - [desPos[0] intValue]) == 1)) && (![self.nameChess containsString:[self convertToString:Pawn]]) && [self.baseArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
+    if (((abs([curPos[0] intValue] - [desPos[0] intValue]) == 1)) && (![self.nameChess containsString:[self convertToString:Pawn]]) && [self.flagArray[[desPos[0] intValue]][[desPos[1] intValue]] isEqual: @0]) {
         return true; // Tien/Lui 1
     }
     if ([desPos[0] intValue] < [curPos[0] intValue]) {
@@ -277,7 +277,7 @@
         case 0:
             //Up
             for (int i=row-1; i>[pointB[0] intValue]; i--) {
-                if (![self.baseArray[i][col]  isEqual: @0]) {
+                if (![self.flagArray[i][col]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -285,7 +285,7 @@
         case 1:
             //Down
             for (int i=row+1; i<[pointB[0] intValue]; i++) {
-                if (![self.baseArray[i][col]  isEqual: @0]) {
+                if (![self.flagArray[i][col]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -293,7 +293,7 @@
         case 2:
             //Right
             for (int i=col+1; i<[pointB[1] intValue]; i++) {
-                if (![self.baseArray[row][i]  isEqual: @0]) {
+                if (![self.flagArray[row][i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -301,7 +301,7 @@
         case 3:
             //Left
             for (int i=col-1; i>[pointB[1] intValue]; i--) {
-                if (![self.baseArray[row][i]  isEqual: @0]) {
+                if (![self.flagArray[row][i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -326,7 +326,7 @@
         case 0:
             //rightUp
             for (int i=1; row - i >[pointB[0] intValue]; i++) {
-                if (![self.baseArray[row-i][col+i]  isEqual: @0]) {
+                if (![self.flagArray[row-i][col+i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -334,7 +334,7 @@
         case 1:
             //rightDown
             for (int i=1; i+row<[pointB[0] intValue]; i++) {
-                if (![self.baseArray[row+i][col+i]  isEqual: @0]) {
+                if (![self.flagArray[row+i][col+i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -342,7 +342,7 @@
         case 2:
             //leftUp
             for (int i=1; row-i>[pointB[0] intValue]; i++) {
-                if (![self.baseArray[row-i][col-i]  isEqual: @0]) {
+                if (![self.flagArray[row-i][col-i]  isEqual: @0]) {
                     return false;
                 }
             }
@@ -350,7 +350,7 @@
         case 3:
             //leftDown
             for (int i=1; i+row<[pointB[0] intValue]; i++) {
-                if (![self.baseArray[row+i][col-i]  isEqual: @0]) {
+                if (![self.flagArray[row+i][col-i]  isEqual: @0]) {
                     return false;
                 }
             }

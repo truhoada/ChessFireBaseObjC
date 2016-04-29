@@ -20,7 +20,7 @@ typedef enum {
 
 @interface ChessView : UIView
 
-@property(nonatomic, strong) NSArray *baseArray;
+@property(nonatomic, strong) NSArray *flagArray;
 @property(nonatomic, strong) NSDictionary *chessPosition;
 @property(nonatomic, strong) NSString *playerMove;
 @property(nonatomic, strong) NSString *nameChess;
