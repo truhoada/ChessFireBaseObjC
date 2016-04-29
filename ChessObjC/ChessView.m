@@ -164,11 +164,12 @@
 - (int)jumpTypesWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
     if (((abs([curPos[1] intValue] - [desPos[1] intValue]) == 1) && (abs([curPos[0] intValue] - [desPos[0] intValue]) == 2)) || (((abs([curPos[1] intValue] - [desPos[1] intValue]) == 2) && ((abs([curPos[0] intValue] - [desPos[0] intValue]) == 1))))) {
         return 0; // Ma~
-    } else if ([curPos[0] intValue] != [desPos[0] intValue] && [curPos[1] intValue] != [desPos[1] intValue]) {
+    } else if (abs([curPos[0] intValue] - [desPos[0] intValue]) == abs([curPos[1] intValue] - [desPos[1] intValue])) {
         return 1; //Cheo
-    } else {
+    } else if ([curPos[0] intValue] == [desPos[0] intValue] || [curPos[1] intValue] == [desPos[1] intValue]) {
         return 2; // Thang
     }
+    return 3;
 }
 
 - (BOOL)checkDiagonalWithCurrentPosition:(NSArray*)curPos andDestinationPosition:(NSArray*)desPos {
