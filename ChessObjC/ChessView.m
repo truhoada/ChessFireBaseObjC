@@ -98,7 +98,7 @@
             break;
             
         case Pawn:
-            if ([curPos[0] intValue] - [desPos[0] intValue] == 2 && [curPos[0] intValue] == 6) {
+            if ([curPos[0] intValue] - [desPos[0] intValue] == 2 && [curPos[0] intValue] == 6 && [desPos[1] intValue] == [curPos[1] intValue]) {
                 return true; // Di 2 buoc tai vi tri ban dau
             }
             if ((abs([curPos[0] intValue] - [desPos[0] intValue]) > 1) || (((abs([curPos[1] intValue] - [desPos[1] intValue]) > 1)))) {

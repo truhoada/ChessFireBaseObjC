@@ -79,7 +79,7 @@ static NSString * const kFirebaseURL = @"https://chess-techmaster.firebaseio.com
         subNameRival = @"";
     } else {
         subNameRival = @"";
-        subNamePlayer = @"white";
+        subNamePlayer = @"white"; //Trong THop self.colorPlayer chua co gia tri
     }
 
     flagArray = [[NSMutableArray alloc] initWithObjects:
